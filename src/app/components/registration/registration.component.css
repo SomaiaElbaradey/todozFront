@@ -1,0 +1,47 @@
+.form-control {
+    width: 70%;
+    height: 50px;
+    padding: 10px 15px;
+    background: no-repeat;
+    margin: 15px auto;
+    color: rgb(238, 234, 234);
+}
+
+.field-submit {
+    opacity: 1;
+    transition: background-color 0.6s;
+    transition-timing-function: ease-in;
+    cursor: pointer;
+    background-color: #44c1c1c7;
+    /* 44c1c1 */
+}
+
+.field-submit:hover {
+    background-color: #3b3b3bbb;
+}
+
+.table {
+    margin-top: 30px;
+}
+
+.step-title p {
+    color: rgb(194, 191, 191);
+}
+
+.top-btn {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.field-name.ng-invalid.ng-touched ,  .field-email.ng-invalid.ng-touched , 
+.field-age.ng-invalid.ng-touched, .field-password.ng-invalid.ng-touched  {
+    border: #CF6679 solid 1px
+}
+
+.invalid{
+    color: #CF6679;
+}   
+
+.gallery{
+    margin-top: 69px;
+}
