@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -8,9 +9,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 })
 export class RegistrationComponent implements OnInit {
 
-
-  image: string = '/assets/registration/5.png'
-  registered: boolean = false;
+  //registration validation
   myForm = new FormGroup({
     username: new FormControl('', [
       Validators.required,
@@ -37,31 +36,27 @@ export class RegistrationComponent implements OnInit {
     ])
   })
 
+  //initiale values
   validForm = true;
-  list = [{ name: "Somaia", age: 23, email: "SomaiaMostafa@angular.com" }];
-  metaData = ["Name", "Age", "Email"];
-
-  constructor() { }
+  image: string = '/assets/registration/5.png'
 
   ngOnInit(): void {
   }
 
-  allowRegister() {
-    this.registered = true;
-  }
-
-  @Output('lastPerson') myEvent = new EventEmitter();
-
   registration(e) {
-    console.log(e)
-    console.log(this.myForm)
     if (this.myForm.valid) {
-      this.myEvent.emit(this.myForm.value);
+      //take values to back to register
       this.validForm = true;
-      this.list.push(this.myForm.value);
     }
     else this.validForm = false;
   }
+
+  //navigate to login
+  constructor(private router: Router) { }
+  navigateToLogin() {
+    this.router.navigateByUrl('/login');
+ }
+
 }
 
 function ageValidator(control: AbstractControl): { [key: string]: boolean } | null {

@@ -1,1 +1,50 @@
-<p>login works!</p>
+<div style="background-color: #111111; padding: 50px 0;" class="text-light">
+    <div class="container">
+
+        <!-- login section -->
+        <div class="row login">
+            <div class="col-md-6 align-self-start text-center">
+                <div class="row form-content">
+                    <div class="col-12">
+                        <div class="step-title">
+                            <h2 class="featured">Sign in to ToDos</h2>
+                            <p>Please Enter your data.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- login form -->
+                <div class="row text-center form-content">
+                    <div class="col-12">
+                        <form #loginForm [formGroup]="myForm" class="step-group">
+                            <input type="email" formControlName='email' name="email" class="form-control field-email"
+                                placeholder="Email">
+                            <span *ngIf="!validForm && myForm.controls.email.invalid">
+                                <span *ngIf="myForm.controls.email.errors.required" class="invalid">Email is
+                                    required.</span>
+                                <span *ngIf="myForm.controls.email.errors.pattern" class="invalid"> Unvalid Email.
+                                </span>
+                            </span>
+                            <input type="password" formControlName='password' name="password"
+                                class="form-control field-password" placeholder="Password">
+                            <span *ngIf="!validForm && myForm.controls.password.invalid ">
+                                <span *ngIf="myForm.controls.password.errors.required" class="invalid"> Password is
+                                    required.</span>
+                            </span>
+                            <input type="submit" value="login" class="form-control field-submit"
+                                (click)="login(loginForm)">
+                        </form>
+                        <p class="loginNavigator">New to ToDos? <a (click)="navigateToRegister()">Create an account</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- login image -->
+            <div class="content-images col-12 col-md-6 pl-md-5 d-none d-md-block">
+                <div class="gallery">
+                    <div class="mask-radius"></div>
+                    <img src={{image}} class="fit-image" alt="register Image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

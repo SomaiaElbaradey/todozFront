@@ -7,8 +7,8 @@
                 <div class="row form-content">
                     <div class="col-12">
                         <div class="step-title">
-                            <h2 class="featured">registation Form</h2>
-                            <p>Please Enter your data.</p>
+                            <h2 class="featured">Join ToDos</h2>
+                            <p>Create your account</p>
                         </div>
                     </div>
                 </div>
@@ -70,16 +70,16 @@
                             <input type="submit" value="Register" class="form-control field-submit"
                                 (click)="registration(registerForm)">
                         </form>
-                        <button routerLink="login">Navigate to login</button>
+                        <p class="loginNavigator">Already have an account? <a (click)="navigateToLogin()">Login</a></p>
                     </div>
                 </div>
             </div>
 
             <!-- register image -->
             <div class="content-images col-12 col-md-6 pl-md-5 d-none d-md-block">
-                <div class="gallery">
+                <div class="gallery register">
                     <div class="mask-radius"></div>
-                    <img src={{image}} class="fit-image" width="509" alt="register Image">
+                    <img src={{image}} class="fit-image" alt="register Image">
                 </div>
             </div>
         </div>

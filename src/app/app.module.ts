@@ -8,28 +8,24 @@ import { BottonComponent } from './components/botton/botton.component';
 import { GroupComponent } from './components/group/group.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
-
-const routes: Routes = [
-  { path: 'register', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent },
-  // { path: '', component: HomeComponent },
-  // { path: '**', component: ErrorComponent },
-]
-
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     BottonComponent,
     GroupComponent,
+    NavbarComponent,
     RegistrationComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
