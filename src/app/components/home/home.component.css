@@ -1,17 +1,20 @@
 /* eeeeee
 4ecca3
 44c1c1c7 
-1f2126*/
+1f2126
+
+00fff5*/
 
 .group-div{
-    width: 85%;
+    border-left: 5px solid #4ecca3;
+    width: 100%;
     margin: 15px auto;
-    height: 70px;
-    padding: 10px 15px;
+    padding: 9px;
+    padding-bottom: 1px;
     transition: background-color 0.6s;
     transition-timing-function: ease-in;
     cursor: pointer;
-    background-color: #1f2126;
+    background-color: #272b30;
     border-radius: 5px;
 }
 
@@ -25,4 +28,36 @@
 
 .group-div p{
     color: #9b9da1
+}
+
+.tasks-div{
+    border-left: 5px solid #fc8c84;
+    padding: 15px;
+    cursor:default;
+}
+
+.tasks-div h5{
+    font-size: 17px;
+}
+
+.tasks-div p{
+    font-size: 15px;
+    color: #d3d1d1;
+}
+
+.footer{
+    font-size: 14px;
+    color: #9b9da1;
+}
+
+.footer a{
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent;  
+}
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }
