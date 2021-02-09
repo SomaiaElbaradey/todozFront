@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-registration',
@@ -8,6 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+
+  constructor(
+    private router: Router,
+    private _registerService: RegisterService
+  ) { }
 
   //registration validation
   myForm = new FormGroup({
@@ -27,7 +33,7 @@ export class RegistrationComponent implements OnInit {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).{8,}$')
     ]),
     name: new FormControl('', [
       Validators.maxLength(17),
@@ -45,20 +51,35 @@ export class RegistrationComponent implements OnInit {
 
   registration(e) {
     if (this.myForm.valid) {
-      //take values to back to register
+      //request to register with the valid data
+      this._registerService.register(
+        e.email.value,
+        e.password.value,
+        e.name.value,
+        e.age.value,
+        e.username.value
+      )
+        .subscribe(
+          (response) => {
+            console.log(response)
+          },
+          (err) => {
+            console.log(err)
+          }
+        );
       this.validForm = true;
     }
     else this.validForm = false;
   }
 
   //navigate to login
-  constructor(private router: Router) { }
   navigateToLogin() {
     this.router.navigateByUrl('/login');
- }
+  }
 
 }
 
+//custom validation
 function ageValidator(control: AbstractControl): { [key: string]: boolean } | null {
   const age: number = control.value;
   if (age && (age < 13 || isNaN(age))) return { 'ageValidator': true }

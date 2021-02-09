@@ -1,0 +1,28 @@
+/* eeeeee
+4ecca3
+44c1c1c7 
+1f2126*/
+
+.group-div{
+    width: 85%;
+    margin: 15px auto;
+    height: 70px;
+    padding: 10px 15px;
+    transition: background-color 0.6s;
+    transition-timing-function: ease-in;
+    cursor: pointer;
+    background-color: #1f2126;
+    border-radius: 5px;
+}
+
+.group-div:hover {
+    background-color: #30343b;
+}
+
+.group-div h5{
+    color: rgb(238, 234, 234);
+}
+
+.group-div p{
+    color: #9b9da1
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  //registration validation
+  constructor(
+    private myActivatedRoute: ActivatedRoute,
+    private router: Router,
+    private _loginService: RegisterService
+  ) {
+    console.log(this.myActivatedRoute)
+  }
+
+  //login vlaues validation
   myForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -20,10 +29,7 @@ export class LoginComponent implements OnInit {
     ]),
   })
 
-  constructor(private myActivatedRoute: ActivatedRoute, private router:Router) {
-    console.log(myActivatedRoute)
-  }
-
+  //inital values
   validForm = true;
   image: string = '/assets/registration/5.png';
 
@@ -32,7 +38,19 @@ export class LoginComponent implements OnInit {
 
   login(e) {
     if (this.myForm.valid) {
-      //take values to back to register
+      //http request to login
+      this._loginService.login(
+        e.email.value,
+        e.password.value,
+      )
+        .subscribe(
+          (response) => {
+            console.log(response)
+          },
+          (err) => {
+            console.log(err)
+          }
+        );
       this.validForm = true;
     }
     else this.validForm = false;
@@ -40,6 +58,6 @@ export class LoginComponent implements OnInit {
 
   navigateToRegister() {
     this.router.navigateByUrl('/register');
- }
+  }
 
 }

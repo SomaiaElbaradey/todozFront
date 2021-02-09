@@ -16,7 +16,7 @@
                 <div class="row text-center form-content">
                     <div class="col-12">
                         <form #registerForm [formGroup]="myForm" class="step-group">
-                            <input type="text" formControlName="username" required name="username"
+                            <input type="text" formControlName="username" name="username"
                                 class="form-control field-name" placeholder="Username">
                             <span *ngIf="!validForm && myForm.controls.username.invalid">
                                 <span *ngIf="myForm.controls.username.errors.required" class="invalid">Username is
