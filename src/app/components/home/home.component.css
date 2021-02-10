@@ -54,6 +54,14 @@
     color: #d3d1d1;
 }
 
+.edit-img{
+    cursor: pointer;
+}
+
+.edit-img:hover{
+    opacity: 0.6;
+}
+
 .footer{
     font-size: 14px;
     color: #9b9da1;

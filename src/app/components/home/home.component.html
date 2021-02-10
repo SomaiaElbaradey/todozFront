@@ -1,32 +1,40 @@
 <div style="background-color: #111111; padding: 50px 0;" class="text-light">
+    <div>
+        profile
+    </div>
+
     <div class="container">
 
         <!-- home section -->
         <div class="row">
+
             <!-- groups  -->
-            <div class="col-md-3 list-wrapper">
+            <div class="col-md-3 col-sm-5 list-wrapper">
                 <div class="scrollar">
                     <div class="group-div">
                         <h5> General </h5>
                         <p> 3 tasks </p>
                     </div>
                     <div class="group-div">
-                        <div class="d-flex flex-column ">
+                        <div class="d-flex flex-row justify-content-between flex-start">
                             <h5>Travel</h5>
-                            <img class="align-self-end" src={{edit}} width="27"/>
+                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
                         </div>
                         <p> 15 tasks </p>
                     </div>
-                    
+
                 </div>
                 <button class="form-control field-submit text-center" style="width: 100%;"> + Create New Group </button>
             </div>
 
             <!-- tasks inside some group -->
-            <div class="col-md-5 pl-md-4 list-wrapper">
+            <div class="col-md-5 pl-md-4 col-sm-6 list-wrapper">
                 <div class="scrollar">
                     <div class="group-div tasks-div">
-                        <h5 id="title"> Clean my room </h5>
+                        <div class="d-flex flex-row justify-content-between flex-start">
+                            <h5 id="title"> Clean my room </h5>
+                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
+                        </div>
                         <p id="body"> do my laundary then make my be then clean the whole room and move all the dirty
                             stuff
                             out of the
@@ -43,13 +51,14 @@
                 <button class="form-control field-submit text-center" style="width: 100%;"> + Add New Task </button>
             </div>
 
+            <!-- choose previous month to show its tasks -->
             <div class="col-md-4 pl-md-4 list-wrapper">
-                <div>
-                    choose Month
-                </div>
                 <div class="scrollar">
                     <div class="group-div">
-                        <h5> Last Month </h5>
+                        <div class="d-flex flex-row justify-content-between flex-start">
+                            <h5 id="title"> Last Month </h5>
+                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
+                        </div>
                         <p> 15 tasks </p>
                     </div>
                     <div class="group-div tasks-div">
