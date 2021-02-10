@@ -4,6 +4,15 @@
 1f2126
 
 00fff5*/
+.scrollar{
+    overflow-y:auto;
+}
+
+.list-wrapper{
+    height: 100vh;
+    display: flex; 
+    flex-direction: column;
+}
 
 .group-div{
     border-left: 5px solid #4ecca3;
@@ -57,7 +66,4 @@
 ::-webkit-scrollbar {
     width: 0px; 
     background: transparent;  
-}
-::-webkit-scrollbar-thumb {
-    background: #FF0000;
 }

@@ -8,6 +8,7 @@
 }
 
 .field-submit {
+    height: auto;
     opacity: 1;
     transition: background-color 0.6s;
     transition-timing-function: ease-in;
