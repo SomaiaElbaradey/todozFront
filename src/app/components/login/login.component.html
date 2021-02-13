@@ -10,6 +10,9 @@
                             <h2 class="featured">Sign in to ToDos</h2>
                             <p>Please Enter your data.</p>
                         </div>
+                        <div class="Error" *ngIf="error">
+                            {{error}}
+                        </div>
                     </div>
                 </div>
                 <!-- login form -->

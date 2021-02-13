@@ -52,6 +52,10 @@
     color: #a6ebeb;
 }
 
+.Error {
+    color: #CF6679;
+}
+
 @media only screen and (max-width: 1100px) {
     .gallery img {
       width: 450px;

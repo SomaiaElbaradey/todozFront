@@ -45,6 +45,7 @@ export class RegistrationComponent implements OnInit {
   //initiale values
   validForm = true;
   image: string = '/assets/registration/5.png'
+  error = null;
 
   ngOnInit(): void {
   }
@@ -62,9 +63,11 @@ export class RegistrationComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log(response)
+            this.error = null;
           },
           (err) => {
-            console.log(err)
+            console.log(err);
+            this.error = err.error;
           }
         );
       this.validForm = true;
