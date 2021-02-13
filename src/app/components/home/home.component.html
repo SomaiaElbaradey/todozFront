@@ -11,16 +11,17 @@
             <!-- groups  -->
             <div class="col-md-3 col-sm-5 list-wrapper">
                 <div class="scrollar">
-                    <div class="group-div">
+                    <div class="group-div" (click)=getAllTasks()>
                         <h5> General </h5>
-                        <p> 3 tasks </p>
+                        <p> {{count}} tasks </p>
                     </div>
-                    <div class="group-div">
+
+                    <div *ngFor="let group of groups" class="group-div" id ={{group._id}} (click)=getPosts(group._id)>
                         <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5>Travel</h5>
-                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
+                            <h5 style="font-size: 17px;"> {{group.groupTitle}} </h5>
+                            <img class="align-self-start edit-img" src={{edit}} width="25" alt="edit" />
                         </div>
-                        <p> 15 tasks </p>
+                        <p> ... </p>
                     </div>
 
                 </div>
@@ -29,100 +30,48 @@
 
             <!-- tasks inside some group -->
             <div class="col-md-5 pl-md-4 col-sm-6 list-wrapper">
+                <div *ngIf="tasks.length == 0" class="group-div tasks-div">
+                    <h5 id="title"> You have no tasks yet </h5>
+                </div>
                 <div class="scrollar">
-                    <div class="group-div tasks-div">
-                        <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 id="title"> Clean my room </h5>
-                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
+                    <ng-template ngFor let-task [ngForOf]="tasks" let-i="index">
+                        <div class="group-div tasks-div">
+                            <div class="d-flex flex-row justify-content-between flex-start">
+                                <h5 id="title"> {{ task.title }} </h5>
+                                <img class="align-self-start edit-img" src={{edit}} width="25" alt="edit" />
+                            </div>
+                            <p id="body"> {{task.body}} </p>
+                            <div class="modal-footer footer">
+                                <footer>
+                                    <span>{{ task.status }}</span><br>
+                                    <time>{{ task.createdAt.slice(0, -14) }}</time><br>
+                                    <a *ngFor="let item of task.tags"> #{{item}} </a>
+                                </footer>
+                            </div>
                         </div>
-                        <p id="body"> do my laundary then make my be then clean the whole room and move all the dirty
-                            stuff
-                            out of the
-                            room</p>
-                        <div class="modal-footer footer">
-                            <footer>
-                                <span>to do</span><br>
-                                <time>13/ 1/ 2020</time><br>
-                                <a> #clean #laundary #room</a>
-                            </footer>
-                        </div>
-                    </div>
-                    <div class="group-div tasks-div">
-                        <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 id="title"> Clean my room </h5>
-                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
-                        </div>
-                        <p id="body"> do my laundary then make my be then clean the whole room and move all the dirty
-                            stuff
-                            out of the
-                            room</p>
-                        <div class="modal-footer footer">
-                            <footer>
-                                <span>to do</span><br>
-                                <time>13/ 1/ 2020</time><br>
-                                <a> #clean #laundary #room</a>
-                            </footer>
-                        </div>
-                    </div>
-                    <div class="group-div tasks-div">
-                        <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 id="title"> Clean my room </h5>
-                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
-                        </div>
-                        <p id="body"> do my laundary then make my be then clean the whole room and move all the dirty
-                            stuff
-                            out of the
-                            room</p>
-                        <div class="modal-footer footer">
-                            <footer>
-                                <span>to do</span><br>
-                                <time>13/ 1/ 2020</time><br>
-                                <a> #clean #laundary #room</a>
-                            </footer>
-                        </div>
-                    </div>
-                    <div class="group-div tasks-div">
-                        <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 id="title"> Clean my room </h5>
-                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
-                        </div>
-                        <p id="body"> do my laundary then make my be then clean the whole room and move all the dirty
-                            stuff
-                            out of the
-                            room</p>
-                        <div class="modal-footer footer">
-                            <footer>
-                                <span>to do</span><br>
-                                <time>13/ 1/ 2020</time><br>
-                                <a> #clean #laundary #room</a>
-                            </footer>
-                        </div>
-                    </div>
+                    </ng-template>
                 </div>
                 <button class="form-control field-submit text-center" style="width: 100%;"> + Add New Task </button>
             </div>
 
             <!-- choose previous month to show its tasks -->
             <div class="col-md-4 pl-md-4 list-wrapper">
-                <div class="scrollar">
-                    <div class="group-div">
-                        <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 id="title"> Last Month </h5>
-                            <img class="align-self-end edit-img" src={{edit}} width="25" alt="edit" />
-                        </div>
-                        <p> 15 tasks </p>
+                <div class="group-div">
+                    <div class="d-flex flex-row justify-content-between flex-start">
+                        <h5 id="title"> Last Month </h5>
+                        <img class="align-self-start edit-img" src={{edit}} width="25" alt="edit" />
                     </div>
-                    <div class="group-div tasks-div">
-                        <h5 id="title"> Clean my room </h5>
-                        <p id="body"> do my laundary then make my be then clean the whole room and move all the dirty
-                            stuff
-                            out of the
-                            room</p>
+                    <p> {{lastMos.length}} tasks </p>
+                </div>
+                <div class="scrollar">
+                    <div *ngFor="let task of lastMos" class="group-div tasks-div">
+                        <h5 id="title"> {{task.title}} </h5>
+                        <p id="body"> {{task.body}} </p>
                         <div class="modal-footer footer">
                             <footer>
-                                <span>to do</span><br>
-                                <time>13/ 1/ 2020</time><br>
-                                <a> #clean #laundary #room</a>
+                                <span>{{task.status}}</span><br>
+                                <time>{{ task.createdAt.slice(0, -14) }}</time><br>
+                                <a *ngFor="let item of task.tags"> #{{item}} </a>
                             </footer>
                         </div>
                     </div>
@@ -130,6 +79,5 @@
             </div>
 
         </div>
-
     </div>
 </div>

@@ -13,7 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { JwtInterceptor } from "./helpers/jwt.interceptor";
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 @NgModule({
@@ -35,11 +35,10 @@ import { JwtInterceptor } from "./helpers/jwt.interceptor";
     HttpClientModule 
   ],
   providers: [
-    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true,
+      useClass: TokenInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

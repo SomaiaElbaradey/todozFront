@@ -44,8 +44,8 @@ export class RegisterService {
       ).pipe(
         map((response) => {
           if (response) {
-            this._CookieService.set("Token", response);
-            console.clear();
+            localStorage.setItem("Token", response);
+            // this._CookieService.set("Token", response);
             this.router.navigateByUrl('/home');
           }
         })
