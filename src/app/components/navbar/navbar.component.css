@@ -3,5 +3,13 @@
 }
 
 .navbar{
-    background-color: #1b1b1b;
+    background-color: #272b30;
+}
+
+.profile{
+    align-items: center;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 15px;
+    color: white;
 }

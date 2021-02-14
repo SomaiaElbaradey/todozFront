@@ -44,10 +44,12 @@ export class HomeComponent implements OnInit, OnChanges {
   }
 
   getAllTasks() {
+    this.id = null;
     this.allTasks();
   }
 
   ngOnInit(): void {
+    console.clear();
     //get all tasks
     this.allTasks();
     //all tasks for prev month
@@ -108,11 +110,13 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   }
 
+  //allow add new group
   newGroup() {
     this.addGroupFlag = 1;
   }
   validGroup = true;
-  myForm = new FormGroup({
+  //group validation
+  groupForm = new FormGroup({
     groupTitle: new FormControl('', [
       Validators.required,
       Validators.maxLength(20),
@@ -122,7 +126,7 @@ export class HomeComponent implements OnInit, OnChanges {
 
   //create new group
   addGroup(e) {
-    if (this.myForm.valid) {
+    if (this.groupForm.valid) {
       this.addGroupFlag = 0;
       this.TodoGroupService.addGroup(e.value).subscribe(
         res => {
@@ -153,9 +157,9 @@ export class HomeComponent implements OnInit, OnChanges {
     this.title = group.groupTitle;
   }
   //update the group via http req
-  updatedGroup:boolean = false;
+  updatedGroup: boolean = false;
   updateGroup(value) {
-    if (this.myForm.valid) {
+    if (this.groupForm.valid) {
       this.TodoGroupService.updateGroup(value, this.id).subscribe(
         res => {
           console.log(res);
@@ -168,6 +172,7 @@ export class HomeComponent implements OnInit, OnChanges {
     this.validGroup = false;
   }
 
+  //edit for last month sectio
   editMonth(month) {
     this.modalService.open(month, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -179,6 +184,94 @@ export class HomeComponent implements OnInit, OnChanges {
     this.TodoGroupService.specificMonthTasks(e).subscribe(
       res => this.lastMos = res,
       err => console.log(err)
+    )
+  }
+
+  //task validation
+  taskForm = new FormGroup({
+    title: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+      Validators.minLength(3)
+    ]),
+    body: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10)
+    ]),
+  })
+
+  //add new task
+  validTask: boolean = true;
+  addTodo(task) {
+    this.modalService.open(task, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  err = null;
+  addTask(e) {
+    if (this.taskForm.valid) {
+      this.validTask = true;
+      this.err = null;
+      let title = e.title.value;
+      let body = e.body.value;
+      let status = e.status.value;
+      let tags = [];
+      tags.push(e.tags.value);
+      this.TodoService.addTodo(title, body, status, tags, this.id).subscribe(
+        res => {
+          console.log(res);
+          this.ngOnInit();
+          this.err = false
+        },
+        err => this.err = err.error
+      )
+    }
+    this.validTask = false;
+  }
+
+  //update existing task
+  //update validator
+  taskUpdateForm = new FormGroup({
+    title: new FormControl('', [
+      Validators.maxLength(20),
+      Validators.minLength(3)
+    ]),
+    body: new FormControl('', [
+      Validators.minLength(10)
+    ]),
+  })
+  //get to do task to be updated
+  task = null;
+  todoId(task) {
+    this.task = task;
+  }
+  //open the form 
+  openEditTodo(task) {
+    this.modalService.open(task, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  updateTask(e) {
+    this.err = null;
+    let title = e.title.value || this.task.title;
+    let body = e.body.value || this.task.body;
+    let status = e.status.value || this.task.status;
+    let tags = this.task.tags;
+    if(e.tags.value){
+      tags.push(e.tags.value);
+    }
+    console.log(e)
+    this.TodoService.updateTodo(title, body, status, tags, this.task._id).subscribe(
+      res => {
+        console.log(res);
+        this.ngOnInit();
+        this.err = false
+      },
+      err => this.err = err.error
     )
   }
 

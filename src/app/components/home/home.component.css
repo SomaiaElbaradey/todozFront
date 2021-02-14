@@ -33,11 +33,12 @@
 }
 
 .group-div h5{
+    font-size: 21px;
     color: rgb(238, 234, 234);
 }
 
 .group-div p{
-    color: #9b9da1
+    color: #9b9da1;
 }
 
 .tasks-div{
@@ -47,7 +48,7 @@
 }
 
 .tasks-div h5{
-    font-size: 17px;
+    font-size: 19px;
 }
 
 .tasks-div p{
@@ -77,15 +78,8 @@ visibility: visible;
     cursor: pointer;
 }
 
-.profile{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;  
-    align-items: center;
-    font-size: 19px;
-    text-align: center;
-    margin-left: 15px;
-    background-color: #44c1c1c7;  
+.modal-body input, .modal-body textarea, .modal-body select {
+    color: black;
 }
 
 ::-webkit-scrollbar {

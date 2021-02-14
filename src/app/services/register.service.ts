@@ -45,7 +45,6 @@ export class RegisterService {
         map((response) => {
           if (response) {
             localStorage.setItem("Token", response);
-            // this._CookieService.set("Token", response);
             this.router.navigateByUrl('/home');
           }
         })
@@ -53,7 +52,7 @@ export class RegisterService {
   }
 
   public logout() {
-    this._CookieService.delete("Token");
+    localStorage.removeItem("Token");
   }
 
 }

@@ -2,3 +2,15 @@
 html{
     background-color: #111111;
 }
+@font-face {
+    font-family: "Nanu";
+    src: url(./assets/fonts/Nanu.ttf);
+}
+@font-face {
+    font-family: "Deli";
+    src: url(./assets/fonts/Deli.ttf);
+}
+
+*{
+    font-family:  Deli, monospace, sans-serif;
+}

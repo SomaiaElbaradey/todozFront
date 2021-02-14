@@ -1,7 +1,5 @@
+<app-navbar></app-navbar>
 <div style="background-color: #111111; padding: 10px 0;" class="text-light">
-    <div class="profile">
-        SE
-    </div>
     <div class="container">
         <!-- home section -->
         <div class="row">
@@ -14,12 +12,13 @@
                         <p> {{count}} tasks </p>
                     </div>
 
-                    <div *ngFor="let group of groups" class="group-div" id={{group._id}} (click)=getPosts(group._id)>
+                    <div *ngFor="let group of groups" class="group-div" id={{group._id}}
+                        (click)=getPosts(group._id);getId(group);>
                         <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 style="font-size: 17px;" #groupTitle> {{group.groupTitle}} </h5>
+                            <h5 style="font-size: 19px;" #groupTitle> {{group.groupTitle}} </h5>
                             <div>
                                 <img class="align-self-start edit-img" src={{edit}} width="17" alt="edit"
-                                    (click)="editGroup(groupModal); getId(group)" />
+                                    (click)="editGroup(groupModal)" />
                                 <img class="align-self-start delete-img" src={{delete}} width="17" alt="edit"
                                     (click)=deleteGroup(group._id) />
                             </div>
@@ -31,7 +30,7 @@
 
                 <!-- add new group -->
                 <div class="row" *ngIf="addGroupFlag">
-                    <div class="col-lg-8 p-lg-3" [formGroup]="myForm">
+                    <div class="col-lg-8 p-lg-3" [formGroup]="groupForm">
                         <input style="width: 100%;" formControlName='groupTitle' #groupTitle type="text"
                             placeholder="Group Title" class="form-control">
                     </div>
@@ -39,13 +38,13 @@
                         <input type="submit" value="Add" style="width: 100%;"
                             class="form-control field-submit text-center" (click)=addGroup(groupTitle)>
                     </div>
-                    <span *ngIf="!validGroup && myForm.controls.groupTitle.invalid">
-                        <span *ngIf="myForm.controls.groupTitle.errors.required" class="invalid">Title is
+                    <span style="margin-left: 29px;" *ngIf="!validGroup && groupForm.controls.groupTitle.invalid">
+                        <span *ngIf="groupForm.controls.groupTitle.errors.required" class="invalid">Title is
                             required.</span>
-                        <span *ngIf="myForm.controls.groupTitle.errors.minlength" class="invalid">
+                        <span *ngIf="groupForm.controls.groupTitle.errors.minlength" class="invalid">
                             Title must be at least 3 characters long.
                         </span>
-                        <span *ngIf="myForm.controls.groupTitle.errors.maxlength" class="invalid">
+                        <span *ngIf="groupForm.controls.groupTitle.errors.maxlength" class="invalid">
                             Title must be less than 20 characters.
                         </span>
                     </span>
@@ -66,7 +65,8 @@
                             <div class="d-flex flex-row justify-content-between flex-start">
                                 <h5 id="title"> {{ task.title }} </h5>
                                 <div>
-                                    <img class="align-self-start edit-img" src={{edit}} width="17" alt="edit" />
+                                    <img class="align-self-start edit-img" src={{edit}} width="17" alt="edit"
+                                        (click)=openEditTodo(taskModal);todoId(task) />
                                     <img class="align-self-start delete-img" src={{delete}} width="17" alt="edit"
                                         (click)=deleteTask(task._id) />
                                 </div>
@@ -82,14 +82,15 @@
                         </div>
                     </ng-template>
                 </div>
-                <button class="form-control field-submit text-center" style="width: 100%;"> + Add New Task </button>
+                <button class="form-control field-submit text-center" style="width: 100%;"
+                    (click)="addTodo(newTaskModal)"> + Add New Task </button>
             </div>
 
             <!-- choose previous month to show its tasks -->
             <div class="col-md-4 pl-md-4 list-wrapper">
                 <div class="group-div">
                     <div class="d-flex flex-row justify-content-between flex-start">
-                        <h5 id="title"> Last Month </h5>
+                        <h5 id="title"> Previous Tasks </h5>
                         <img class="align-self-start edit-img" src={{edit}} width="21" alt="edit"
                             (click)=editMonth(monthModal) />
                     </div>
@@ -120,17 +121,18 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div [formGroup]="myForm" class="form-group">
+                        <div [formGroup]="groupForm" class="form-group">
                             <label for="message-text" class="col-form-label">Title:</label>
                             <textarea #newTitle formControlName='groupTitle' style="color: #111111;"
                                 placeholder={{title}} class="form-control"></textarea>
-                            <span *ngIf="!validGroup && myForm.controls.groupTitle.invalid">
-                                <span *ngIf="myForm.controls.groupTitle.errors.required" class="invalid">Title is
+                            <span style="margin-left: 43px;"
+                                *ngIf="!validGroup && groupForm.controls.groupTitle.invalid">
+                                <span *ngIf="groupForm.controls.groupTitle.errors.required" class="invalid">Title is
                                     required.</span>
-                                <span *ngIf="myForm.controls.groupTitle.errors.minlength" class="invalid">
+                                <span *ngIf="groupForm.controls.groupTitle.errors.minlength" class="invalid">
                                     Title must be at least 3 characters long.
                                 </span>
-                                <span *ngIf="myForm.controls.groupTitle.errors.maxlength" class="invalid">
+                                <span *ngIf="groupForm.controls.groupTitle.errors.maxlength" class="invalid">
                                     Title must be less than 20 characters.
                                 </span>
                             </span>
@@ -147,7 +149,7 @@
                 </div>
             </ng-template>
 
-            <!-- modal to enter last month -->
+            <!-- modal to enter month -->
             <ng-template #monthModal let-modal>
                 <div class="modal-header">
                     <h4 class="modal-title" id="modal-basic-title">Show Tasks in specific month</h4>
@@ -163,8 +165,8 @@
                                 <input style="color: black;" class="form-control" placeholder="yyyy-mm-dd" name="dp"
                                     ngbDatepicker #dp="ngbDatepicker">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-dark" (click)="dp.toggle()"
-                                        type="button">Select date</button>
+                                    <button class="btn btn-outline-dark" (click)="dp.toggle()" type="button">Select
+                                        date</button>
                                 </div>
                             </div>
                         </div>
@@ -173,6 +175,81 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark"
                         (click)="updateMonth(dp._inputValue.slice(5, 7)); modal.close('')">Save</button>
+                </div>
+            </ng-template>
+
+            <!-- modal to add task -->
+            <ng-template #newTaskModal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Add new task</h4>
+                </div>
+                <div class="modal-body">
+                    <form #Form [formGroup]="taskForm" class="step-group">
+                        <input type="text" formControlName='title' name="title" class="form-control field-title"
+                            placeholder="Title">
+                        <span style="margin-left: 43px;" *ngIf="!validTask && taskForm.controls.title.invalid">
+                            <span *ngIf="taskForm.controls.title.errors.required" class="invalid">
+                                title is required.
+                            </span>
+                            <span *ngIf="taskForm.controls.title.errors.maxlength" class="invalid">
+                                title must be less than 20 characters.
+                            </span>
+                            <span *ngIf="taskForm.controls.title.errors.minlength" class="invalid">
+                                title must be at least 3 characters.
+                            </span>
+                        </span>
+                        <textarea name="body" formControlName='body' class="form-control field-body"
+                            placeholder="Task Details"></textarea>
+                        <span style="margin-left: 43px;" *ngIf="!validTask && taskForm.controls.body.invalid">
+                            <span *ngIf="taskForm.controls.body.errors.required" class="invalid">
+                                details is required.
+                            </span>
+                            <span *ngIf="taskForm.controls.body.errors.minlength" class="invalid">
+                                details must be at least 10 characters.
+                            </span>
+                        </span>
+                        <select name="status" class="form-control">
+                            <option value="to-do">To Do</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="done">Done</option>
+                        </select>
+                        <input type="text" placeholder="Tags" class="form-control" name="tags">
+                    </form>
+                    <span style="color: rgb(4, 61, 42); margin-left: 10px;" *ngIf="err == false">
+                        <img src="https://img.icons8.com/fluent/30/000000/checkmark.png" />
+                        Task was added successfully</span>
+                    <span *ngIf="err" class="invalid">{{err}}</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="addTask(Form)">Save</button>
+                    <button type="button" class="btn btn-secondary" (click)="modal.close('')">Close</button>
+                </div>
+            </ng-template>
+
+            <!-- modal to update existing task -->
+            <ng-template #taskModal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">update the task</h4>
+                </div>
+                <div class="modal-body">
+                    <form #Form class="step-group">
+                        <input type="text" name="title" class="form-control field-title" placeholder="Title">
+                        <textarea name="body" class="form-control field-body" placeholder="Task Details"></textarea>
+                        <select name="status" class="form-control">
+                            <option value="to-do">To Do</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="done">Done</option>
+                        </select>
+                        <input type="text" placeholder="Tags" class="form-control" name="tags">
+                    </form>
+                    <span style="color: rgb(4, 61, 42); margin-left: 10px;" *ngIf="err == false">
+                        <img src="https://img.icons8.com/fluent/30/000000/checkmark.png" />
+                        Task was updated successfully</span>
+                    <span *ngIf="err" class="invalid">{{err}}</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="updateTask(Form)">Save</button>
+                    <button type="button" class="btn btn-secondary" (click)="modal.close('')">Close</button>
                 </div>
             </ng-template>
         </div>

@@ -47,6 +47,7 @@ export class TodoGroupService {
       .delete(`${this.baseURL}todosGroup/${id}`)
   }
 
+  //add new group
   public addGroup(groupTitle: string): Observable<any> {
     return this._HttpClient
       .post(
@@ -56,6 +57,7 @@ export class TodoGroupService {
       )
   }
 
+  //update existing group
   public updateGroup(groupTitle: string, id: string): Observable<any> {
     return this._HttpClient
       .patch(
