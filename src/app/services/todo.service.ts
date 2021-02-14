@@ -14,12 +14,18 @@ export class TodoService {
     private router: Router,
   ) { }
 
-  private baseURL: string = `${environment.api}`
+  private baseURL: string = `${environment.api}/api/post/`
 
   //get all general tasks
   public allTasks(): Observable<any> {
     return this._HttpClient
-      .get(`${this.baseURL}/api/post/todos`)
+      .get(`${this.baseURL}todos`)
   }
   
+  //delete one task
+  public deleteTask(id: string): Observable<any> {
+    return this._HttpClient
+      .delete(`${this.baseURL}todos/${id}`)
+  }
+
 }

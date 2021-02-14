@@ -1,10 +1,8 @@
-<div style="background-color: #111111; padding: 50px 0;" class="text-light">
-    <div>
-        profile
+<div style="background-color: #111111; padding: 10px 0;" class="text-light">
+    <div class="profile">
+        SE
     </div>
-
     <div class="container">
-
         <!-- home section -->
         <div class="row">
 
@@ -16,16 +14,45 @@
                         <p> {{count}} tasks </p>
                     </div>
 
-                    <div *ngFor="let group of groups" class="group-div" id ={{group._id}} (click)=getPosts(group._id)>
+                    <div *ngFor="let group of groups" class="group-div" id={{group._id}} (click)=getPosts(group._id)>
                         <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 style="font-size: 17px;"> {{group.groupTitle}} </h5>
-                            <img class="align-self-start edit-img" src={{edit}} width="25" alt="edit" />
+                            <h5 style="font-size: 17px;" #groupTitle> {{group.groupTitle}} </h5>
+                            <div>
+                                <img class="align-self-start edit-img" src={{edit}} width="17" alt="edit"
+                                    (click)="editGroup(groupModal); getId(group)" />
+                                <img class="align-self-start delete-img" src={{delete}} width="17" alt="edit"
+                                    (click)=deleteGroup(group._id) />
+                            </div>
                         </div>
-                        <p> ... </p>
+                        <p> group tasks </p>
                     </div>
 
                 </div>
-                <button class="form-control field-submit text-center" style="width: 100%;"> + Create New Group </button>
+
+                <!-- add new group -->
+                <div class="row" *ngIf="addGroupFlag">
+                    <div class="col-lg-8 p-lg-3" [formGroup]="myForm">
+                        <input style="width: 100%;" formControlName='groupTitle' #groupTitle type="text"
+                            placeholder="Group Title" class="form-control">
+                    </div>
+                    <div class="col-lg-4 p-lg-3 align-self-center">
+                        <input type="submit" value="Add" style="width: 100%;"
+                            class="form-control field-submit text-center" (click)=addGroup(groupTitle)>
+                    </div>
+                    <span *ngIf="!validGroup && myForm.controls.groupTitle.invalid">
+                        <span *ngIf="myForm.controls.groupTitle.errors.required" class="invalid">Title is
+                            required.</span>
+                        <span *ngIf="myForm.controls.groupTitle.errors.minlength" class="invalid">
+                            Title must be at least 3 characters long.
+                        </span>
+                        <span *ngIf="myForm.controls.groupTitle.errors.maxlength" class="invalid">
+                            Title must be less than 20 characters.
+                        </span>
+                    </span>
+                </div>
+
+                <button class="form-control field-submit text-center" style="width: 100%;" (click)=newGroup()> + Create
+                    New Group </button>
             </div>
 
             <!-- tasks inside some group -->
@@ -38,7 +65,11 @@
                         <div class="group-div tasks-div">
                             <div class="d-flex flex-row justify-content-between flex-start">
                                 <h5 id="title"> {{ task.title }} </h5>
-                                <img class="align-self-start edit-img" src={{edit}} width="25" alt="edit" />
+                                <div>
+                                    <img class="align-self-start edit-img" src={{edit}} width="17" alt="edit" />
+                                    <img class="align-self-start delete-img" src={{delete}} width="17" alt="edit"
+                                        (click)=deleteTask(task._id) />
+                                </div>
                             </div>
                             <p id="body"> {{task.body}} </p>
                             <div class="modal-footer footer">
@@ -59,7 +90,8 @@
                 <div class="group-div">
                     <div class="d-flex flex-row justify-content-between flex-start">
                         <h5 id="title"> Last Month </h5>
-                        <img class="align-self-start edit-img" src={{edit}} width="25" alt="edit" />
+                        <img class="align-self-start edit-img" src={{edit}} width="21" alt="edit"
+                            (click)=editMonth(monthModal) />
                     </div>
                     <p> {{lastMos.length}} tasks </p>
                 </div>
@@ -78,6 +110,70 @@
                 </div>
             </div>
 
+            <!-- modal to edit a group title -->
+            <ng-template #groupModal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title">Change the group Title</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div [formGroup]="myForm" class="form-group">
+                            <label for="message-text" class="col-form-label">Title:</label>
+                            <textarea #newTitle formControlName='groupTitle' style="color: #111111;"
+                                placeholder={{title}} class="form-control"></textarea>
+                            <span *ngIf="!validGroup && myForm.controls.groupTitle.invalid">
+                                <span *ngIf="myForm.controls.groupTitle.errors.required" class="invalid">Title is
+                                    required.</span>
+                                <span *ngIf="myForm.controls.groupTitle.errors.minlength" class="invalid">
+                                    Title must be at least 3 characters long.
+                                </span>
+                                <span *ngIf="myForm.controls.groupTitle.errors.maxlength" class="invalid">
+                                    Title must be less than 20 characters.
+                                </span>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <span style="color: rgb(4, 61, 42); margin-left: 10px;" *ngIf="updatedGroup">
+                    <img src="https://img.icons8.com/fluent/30/000000/checkmark.png" />
+                    Group was updated successfully</span>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark"
+                        (click)="updateGroup(newTitle.value)">Save</button>
+                    <button type="button" class="btn btn-secondary" (click)="modal.close('')">Close</button>
+                </div>
+            </ng-template>
+
+            <!-- modal to enter last month -->
+            <ng-template #monthModal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Show Tasks in specific month</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="dateOfBirth">Select the date</label>
+                            <div style="height: 50%;" class="input-group">
+                                <input style="color: black;" class="form-control" placeholder="yyyy-mm-dd" name="dp"
+                                    ngbDatepicker #dp="ngbDatepicker">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-dark" (click)="dp.toggle()"
+                                        type="button">Select date</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark"
+                        (click)="updateMonth(dp._inputValue.slice(5, 7)); modal.close('')">Save</button>
+                </div>
+            </ng-template>
         </div>
     </div>
-</div>

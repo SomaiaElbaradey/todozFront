@@ -15,24 +15,54 @@ export class TodoGroupService {
     private router: Router,
   ) { }
 
-  private baseURL: string = `${environment.api}`
+  private baseURL: string = `${environment.api}/api/todo/`
 
   //get all tasks for group
   public allTasks(id: string): Observable<any> {
     return this._HttpClient
-      .get(`${this.baseURL}/api/todo/todosGroup/${id}`)
+      .get(`${this.baseURL}todosGroup/${id}`)
   }
 
   //get last month tasks
   public lastMonTasks(): Observable<any> {
     return this._HttpClient
-      .get(`${this.baseURL}/api/todo/lastTodos`)
+      .get(`${this.baseURL}lastTodos`)
   }
 
-    //get last month tasks
-    public allGroups(): Observable<any> {
-      return this._HttpClient
-        .get(`${this.baseURL}/api/todo/todosGroup`)
-    }
-  
+  //get all groups
+  public allGroups(): Observable<any> {
+    return this._HttpClient
+      .get(`${this.baseURL}todosGroup`)
+  }
+
+  //filter todos for user specified month
+  public specificMonthTasks(month): Observable<any> {
+    return this._HttpClient
+      .get(`${this.baseURL}lastTodos/${month}`)
+  }
+
+   //delete one's group
+   public deleteGroup(id: string): Observable<any> {
+    return this._HttpClient
+      .delete(`${this.baseURL}todosGroup/${id}`)
+  }
+
+  public addGroup(groupTitle: string): Observable<any> {
+    return this._HttpClient
+      .post(
+        `${this.baseURL}todosGroup`,
+        { groupTitle },
+        { responseType: "text" }
+      )
+  }
+
+  public updateGroup(groupTitle: string, id: string): Observable<any> {
+    return this._HttpClient
+      .patch(
+        `${this.baseURL}todosGroup/${id}`,
+        { groupTitle },
+        { responseType: "text" }
+      )
+  }
+
 }

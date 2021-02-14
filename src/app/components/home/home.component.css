@@ -4,6 +4,7 @@
 1f2126
 
 00fff5*/
+
 .scrollar{
     overflow-y:auto;
 }
@@ -54,12 +55,17 @@
     color: #d3d1d1;
 }
 
-.edit-img{
+.edit-img, .delete-img{
     cursor: pointer;
+    visibility: hidden;
 }
 
-.edit-img:hover{
+.edit-img:hover, .delete-img:hover{
     opacity: 0.6;
+}
+
+.group-div:hover .edit-img, .group-div:hover .delete-img {
+visibility: visible;
 }
 
 .footer{
@@ -69,6 +75,17 @@
 
 .footer a{
     cursor: pointer;
+}
+
+.profile{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;  
+    align-items: center;
+    font-size: 19px;
+    text-align: center;
+    margin-left: 15px;
+    background-color: #44c1c1c7;  
 }
 
 ::-webkit-scrollbar {
