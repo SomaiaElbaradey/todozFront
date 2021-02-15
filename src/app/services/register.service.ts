@@ -51,6 +51,10 @@ export class RegisterService {
       )
   }
 
+  public isLogged(){
+    return !!(localStorage.getItem("Token"));
+  }
+
   public logout() {
     localStorage.removeItem("Token");
   }

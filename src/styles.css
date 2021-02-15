@@ -3,14 +3,17 @@ html{
     background-color: #111111;
 }
 @font-face {
-    font-family: "Nanu";
-    src: url(./assets/fonts/Nanu.ttf);
+    font-family: "Ama";
+    src: url(./assets/fonts/AmaticSC-Bold.ttf);
 }
 @font-face {
-    font-family: "Deli";
-    src: url(./assets/fonts/Deli.ttf);
+    font-family: "robo";
+    src: url(./assets/fonts/Roboto-Light.ttf);
 }
-
 *{
-    font-family:  Deli, monospace, sans-serif;
+    font-family:  Ama, monospace, sans-serif;
+    box-sizing: border-box;
+}
+p, a, time, span {
+    font-family: robo, Helvetica, sans-serif, sans-serif;
 }

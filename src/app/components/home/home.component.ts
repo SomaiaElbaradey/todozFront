@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit, OnChanges {
     console.clear();
     //get all tasks
     this.allTasks();
+    this.err = null;
     //all tasks for prev month
     this.TodoGroupService.lastMonTasks().subscribe(
       (res) => {
@@ -218,7 +219,9 @@ export class HomeComponent implements OnInit, OnChanges {
       let body = e.body.value;
       let status = e.status.value;
       let tags = [];
-      tags.push(e.tags.value);
+      if(e.tags.value){
+        tags = e.tags.value.split(" ");
+      }
       this.TodoService.addTodo(title, body, status, tags, this.id).subscribe(
         res => {
           console.log(res);
@@ -262,7 +265,7 @@ export class HomeComponent implements OnInit, OnChanges {
     let status = e.status.value || this.task.status;
     let tags = this.task.tags;
     if(e.tags.value){
-      tags.push(e.tags.value);
+      tags = tags.concat(e.tags.value.split(" "));
     }
     console.log(e)
     this.TodoService.updateTodo(title, body, status, tags, this.task._id).subscribe(

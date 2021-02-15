@@ -7,9 +7,15 @@
 }
 
 .profile{
-    align-items: center;
-    font-size: 25px;
+    cursor: pointer;
     text-align: center;
     margin-left: 15px;
+    font-weight: 600;
+}
+
+.profile a{
+    font-family: Ama!important;
     color: white;
+    font-size: 35px;
+    text-decoration: none;
 }

@@ -15,7 +15,7 @@
                     <div *ngFor="let group of groups" class="group-div" id={{group._id}}
                         (click)=getPosts(group._id);getId(group);>
                         <div class="d-flex flex-row justify-content-between flex-start">
-                            <h5 style="font-size: 19px;" #groupTitle> {{group.groupTitle}} </h5>
+                            <h5 #groupTitle> {{group.groupTitle}} </h5>
                             <div>
                                 <img class="align-self-start edit-img" src={{edit}} width="17" alt="edit"
                                     (click)="editGroup(groupModal)" />
@@ -76,7 +76,7 @@
                                 <footer>
                                     <span>{{ task.status }}</span><br>
                                     <time>{{ task.createdAt.slice(0, -14) }}</time><br>
-                                    <a *ngFor="let item of task.tags"> #{{item}} </a>
+                                    <a class="tags" *ngFor="let item of task.tags"> #{{item}} </a>
                                 </footer>
                             </div>
                         </div>
@@ -236,6 +236,7 @@
                         <input type="text" name="title" class="form-control field-title" placeholder="Title">
                         <textarea name="body" class="form-control field-body" placeholder="Task Details"></textarea>
                         <select name="status" class="form-control">
+                            <option selected value="" disabled="disabled">Status</option>
                             <option value="to-do">To Do</option>
                             <option value="in-progress">In Progress</option>
                             <option value="done">Done</option>

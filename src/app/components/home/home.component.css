@@ -2,7 +2,6 @@
 4ecca3
 44c1c1c7 
 1f2126
-
 00fff5*/
 
 .scrollar{
@@ -10,7 +9,7 @@
 }
 
 .list-wrapper{
-    height: 100vh;
+    height: 89vh;
     display: flex; 
     flex-direction: column;
 }
@@ -33,12 +32,13 @@
 }
 
 .group-div h5{
-    font-size: 21px;
+    font-size: 27px;
     color: rgb(238, 234, 234);
 }
 
 .group-div p{
     color: #9b9da1;
+    font-size: 14px;
 }
 
 .tasks-div{
@@ -48,11 +48,11 @@
 }
 
 .tasks-div h5{
-    font-size: 19px;
+    font-size: 25px;
 }
 
 .tasks-div p{
-    font-size: 15px;
+    font-size: 14px;
     color: #d3d1d1;
 }
 
@@ -70,12 +70,15 @@ visibility: visible;
 }
 
 .footer{
-    font-size: 14px;
+    font-size: 12px;
     color: #9b9da1;
+    font-family: robo!important;
 }
 
 .footer a{
     cursor: pointer;
+    color: #e9b6b2d5;
+    text-decoration: none;
 }
 
 .modal-body input, .modal-body textarea, .modal-body select {
@@ -85,4 +88,16 @@ visibility: visible;
 ::-webkit-scrollbar {
     width: 0px; 
     background: transparent;  
+}
+
+.modal-header{
+    font-size: 29px;
+}
+
+.modal-body{
+    font-size: 25px;
+}
+
+.modal-footer button{
+    font-size: 19px;
 }

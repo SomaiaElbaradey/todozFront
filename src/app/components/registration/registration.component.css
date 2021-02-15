@@ -1,4 +1,5 @@
 .form-control {
+    font-size: 23px;
     width: 85%;
     height: 50px;
     padding: 10px 15px;
@@ -20,8 +21,14 @@
     background-color: #044444;
 }
 
-.step-title p {
-    color: rgb(194, 191, 191);
+.step-title h2{
+    font-size: 47px;
+    font-weight: 600;
+}
+
+.step-title p{
+    font-size: 15px;
+    color: #a6ebeb;
 }
 
 .field-name.ng-invalid.ng-touched ,  .field-email.ng-invalid.ng-touched , 
@@ -42,7 +49,7 @@
 }
 
 .loginNavigator {
-    font-size: 19px;
+    font-size: 17px;
     color: rgb(226, 224, 224);;
 }
 
@@ -50,6 +57,7 @@
     cursor: pointer;
     text-decoration: underline;
     color: #a6ebeb;
+    font-family: robo, Arial, Helvetica, sans-serif;
 }
 
 .Error {
