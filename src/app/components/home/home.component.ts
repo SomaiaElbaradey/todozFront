@@ -144,6 +144,7 @@ export class HomeComponent implements OnInit, OnChanges {
 
   //open the edit group modal
   editGroup(group) {
+    this.validGroup = true;
     this.modalService.open(group, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -204,6 +205,7 @@ export class HomeComponent implements OnInit, OnChanges {
   //add new task
   validTask: boolean = true;
   addTodo(task) {
+    this.err = null;
     this.modalService.open(task, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -252,6 +254,7 @@ export class HomeComponent implements OnInit, OnChanges {
   }
   //open the form 
   openEditTodo(task) {
+    this.err = null;
     this.modalService.open(task, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

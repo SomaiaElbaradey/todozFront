@@ -98,6 +98,14 @@ visibility: visible;
     font-size: 25px;
 }
 
+.modal-body, span{
+    font-size: 17px;
+}
+
+.modal-body label{
+    font-size: 23px;
+}
+
 .modal-footer button{
     font-size: 19px;
 }
