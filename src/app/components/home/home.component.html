@@ -202,13 +202,14 @@
                             placeholder="Task Details"></textarea>
                         <span style="margin-left: 43px;" *ngIf="!validTask && taskForm.controls.body.invalid">
                             <span *ngIf="taskForm.controls.body.errors.required" class="invalid">
-                                details is required.
+                                details are required.
                             </span>
                             <span *ngIf="taskForm.controls.body.errors.minlength" class="invalid">
                                 details must be at least 10 characters.
                             </span>
                         </span>
                         <select name="status" class="form-control">
+                            <option selected value="" disabled="disabled">Status</option>
                             <option value="to-do">To Do</option>
                             <option value="in-progress">In Progress</option>
                             <option value="done">Done</option>

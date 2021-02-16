@@ -44,7 +44,7 @@ export class RegisterService {
       ).pipe(
         map((response) => {
           if (response) {
-            localStorage.setItem("Token", response);
+            localStorage.setItem("todozToken", response);
             this.router.navigateByUrl('/home');
           }
         })
@@ -52,11 +52,11 @@ export class RegisterService {
   }
 
   public isLogged(){
-    return !!(localStorage.getItem("Token"));
+    return !!(localStorage.getItem("todozToken"));
   }
 
   public logout() {
-    localStorage.removeItem("Token");
+    localStorage.removeItem("todozToken");
   }
 
 }

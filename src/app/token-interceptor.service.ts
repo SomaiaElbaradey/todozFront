@@ -8,12 +8,12 @@ import { throwError } from 'rxjs';
 export class TokenInterceptorService implements HttpInterceptor {
 
   constructor() { }
-  private headers: HttpHeaders  = new HttpHeaders().append('x-login-token', localStorage.getItem("Token"));
+  private headers: HttpHeaders  = new HttpHeaders().append('x-login-token', localStorage.getItem("todozToken"));
   intercept(req, next){
     let token = req.clone({
       setHeaders: {
         Authorization: `todoKey`,
-        'x-login-token': localStorage.getItem("Token")
+        'x-login-token': localStorage.getItem("todozToken")
       }
     })
     return next.handle(token)
