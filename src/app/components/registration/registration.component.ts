@@ -61,10 +61,8 @@ export class RegistrationComponent implements OnInit {
         e.username.value
       )
         .subscribe(
-          (response) => {
-            console.log(response)
-            this.error = null;
-          },
+          () => 
+            this.error = null,
           (err) => {
             console.log(err);
             this.error = err.error;

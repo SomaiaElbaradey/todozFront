@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit, OnChanges {
   allTasks() {
     this.TodoService.allTasks().subscribe(
       (res) => {
-        console.log(res);
         this.tasks = res;
         this.count = this.tasks.length;
       },
@@ -55,10 +54,7 @@ export class HomeComponent implements OnInit, OnChanges {
     this.err = null;
     //all tasks for prev month
     this.TodoGroupService.lastMonTasks().subscribe(
-      (res) => {
-        console.log(res);
-        this.lastMos = res;
-      },
+      (res) => this.lastMos = res,
       (err) => {
         console.log(err);
       }
@@ -66,7 +62,6 @@ export class HomeComponent implements OnInit, OnChanges {
     //get all groups
     this.TodoGroupService.allGroups().subscribe(
       (res) => {
-        console.log(res);
         this.groups = res;
       },
       (err) => {
@@ -78,7 +73,6 @@ export class HomeComponent implements OnInit, OnChanges {
   //to get posts for speciific group
   getPosts(e) {
     this.TodoGroupService.allTasks(e).subscribe((response) => {
-      console.log(response)
       this.tasks = response;
     });
   }
@@ -88,7 +82,6 @@ export class HomeComponent implements OnInit, OnChanges {
     if (confirm(`Are you sure you want to delete the selected group?`)) {
       this.TodoGroupService.deleteGroup(e).subscribe(
         Response => {
-          console.log(Response);
           this.ngOnInit();
         }),
         err => {
@@ -101,10 +94,7 @@ export class HomeComponent implements OnInit, OnChanges {
   deleteTask(e) {
     if (confirm(`Are you sure you want to delete the selected task?`)) {
       this.TodoService.deleteTask(e).subscribe(
-        Response => {
-          console.log(Response);
-          this.ngOnInit();
-        }),
+        () => this.ngOnInit()),
         err => {
           console.log(err);
         }
@@ -129,10 +119,7 @@ export class HomeComponent implements OnInit, OnChanges {
   addGroup(e) {
     if (this.groupForm.valid) {
       this.addGroupFlag = 0;
-      this.TodoGroupService.addGroup(e.value).subscribe(
-        res => {
-          console.log(res);
-        }),
+      this.TodoGroupService.addGroup(e.value).subscribe(),
         err => console.log(err)
       this.ngOnInit();
     }
@@ -164,7 +151,6 @@ export class HomeComponent implements OnInit, OnChanges {
     if (this.groupForm.valid) {
       this.TodoGroupService.updateGroup(value, this.id).subscribe(
         res => {
-          console.log(res);
           this.updatedGroup = true;
           this.ngOnInit();
         },
@@ -221,12 +207,11 @@ export class HomeComponent implements OnInit, OnChanges {
       let body = e.body.value;
       let status = e.status.value;
       let tags = [];
-      if(e.tags.value){
+      if (e.tags.value) {
         tags = e.tags.value.split(" ");
       }
       this.TodoService.addTodo(title, body, status, tags, this.id).subscribe(
         res => {
-          console.log(res);
           this.ngOnInit();
           this.err = false
         },
@@ -267,13 +252,11 @@ export class HomeComponent implements OnInit, OnChanges {
     let body = e.body.value || this.task.body;
     let status = e.status.value || this.task.status;
     let tags = this.task.tags;
-    if(e.tags.value){
+    if (e.tags.value) {
       tags = tags.concat(e.tags.value.split(" "));
     }
-    console.log(e)
     this.TodoService.updateTodo(title, body, status, tags, this.task._id).subscribe(
       res => {
-        console.log(res);
         this.ngOnInit();
         this.err = false
       },
