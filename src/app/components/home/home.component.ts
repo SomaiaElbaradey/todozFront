@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { TodoGroupService } from 'src/app/services/todo-group.service';
 import { TodoService } from 'src/app/services/todo.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { DatePickerComponent } from 'ng2-date-picker';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css', '../registration/registration.component.css']
 })
+
 export class HomeComponent implements OnInit, OnChanges {
 
   constructor(
@@ -29,6 +31,9 @@ export class HomeComponent implements OnInit, OnChanges {
   lastMos = [];
   groups = [];
   addGroupFlag = 0;
+  filter = "Recent";
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+    'October', 'November', 'December'];
 
   allTasks() {
     this.TodoService.allTasks().subscribe(
@@ -160,7 +165,7 @@ export class HomeComponent implements OnInit, OnChanges {
     this.validGroup = false;
   }
 
-  //edit for last month sectio
+  //edit for recent todoz section
   editMonth(month) {
     this.modalService.open(month, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -169,10 +174,30 @@ export class HomeComponent implements OnInit, OnChanges {
     });
   }
   updateMonth(e) {
-    this.TodoGroupService.specificMonthTasks(e).subscribe(
-      res => this.lastMos = res,
-      err => console.log(err)
-    )
+    const month = e.month.value;
+    const date = e.date.value;
+    if (month) {
+      this.TodoGroupService.specificMonthTasks(month).subscribe(
+        res => {
+          this.lastMos = res;
+          this.filter = this.months[month - 1]
+        },
+        err => console.log(err)
+      )
+    }
+
+    else if (date) {
+      const year = date.slice(0, 4);
+      const month = date.slice(5, 7);
+      const day = date.slice(8, 10);
+      this.TodoGroupService.specificDateTasks(year, month, day).subscribe(
+        res => {
+          this.lastMos = res;
+          this.filter = `${day} ${this.months[month - 1]}`
+        },
+        err => console.log(err)
+      )
+    }
   }
 
   //task validation

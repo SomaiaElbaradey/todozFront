@@ -41,8 +41,14 @@ export class TodoGroupService {
       .get(`${this.baseURL}lastTodos/${month}`)
   }
 
-   //delete one's group
-   public deleteGroup(id: string): Observable<any> {
+  //filter todos for user specified date
+  public specificDateTasks(year, month, day): Observable<any> {
+    return this._HttpClient
+    .get(`${this.baseURL}lastTodosDate/${year}/${month}/${day}`)
+  }
+
+  //delete one's group
+  public deleteGroup(id: string): Observable<any> {
     return this._HttpClient
       .delete(`${this.baseURL}todosGroup/${id}`)
   }

@@ -90,22 +90,27 @@
             <div class="col-md-4 pl-md-4 list-wrapper">
                 <div class="group-div">
                     <div class="d-flex flex-row justify-content-between flex-start">
-                        <h5 id="title"> Previous Tasks </h5>
+                        <h5 id="title"> {{filter}} Tasks</h5>
                         <img class="align-self-start edit-img" src={{edit}} width="21" alt="edit"
                             (click)=editMonth(monthModal) />
                     </div>
                     <p> {{lastMos.length}} tasks </p>
                 </div>
                 <div class="scrollar">
-                    <div *ngFor="let task of lastMos" class="group-div tasks-div">
-                        <h5 id="title"> {{task.title}} </h5>
-                        <p id="body"> {{task.body}} </p>
-                        <div class="modal-footer footer">
-                            <footer>
-                                <span>{{task.status}}</span><br>
-                                <time>{{ task.createdAt.slice(0, -14) }}</time><br>
-                                <a *ngFor="let item of task.tags"> #{{item}} </a>
-                            </footer>
+                    <div *ngFor="let task of lastMos" class=" previous-div">
+                        <div id="circle"></div>
+                        <div class="filter-div">
+                            <div style="margin-left: 10px;">
+                                <div class="footer">
+                                    <footer>
+                                        <time>{{ task.createdAt.slice(0, -14) }}</time><br>
+                                    </footer>
+                                </div>
+                                <div class="prev-todo">
+                                    <span id="title"> {{task.title}} </span><br>
+                                    <span style="padding: 0px;" id="body"> {{task.body}} </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,29 +157,48 @@
             <!-- modal to enter month -->
             <ng-template #monthModal let-modal>
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">Show Tasks in specific month</h4>
+                    <h4 class="modal-title" id="modal-basic-title">Show Tasks in specific date</h4>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="dateOfBirth">Select the date</label>
-                            <div style="height: 50%;" class="input-group">
-                                <input style="color: black;" class="form-control" placeholder="yyyy-mm-dd" name="dp"
-                                    ngbDatepicker #dp="ngbDatepicker">
+                    <div class="form-group">
+                        <label for="dateOfBirth">Filter your Todoz</label>
+                        <div style="height: 50%;" class="input-group">
+                            <form #filterForm>
+                                <input style="color: black; display: none;" class="form-control" ngbDatepicker
+                                    #dp="ngbDatepicker">
+
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-dark" (click)="dp.toggle()" type="button">Select
-                                        date</button>
+                                    <button name="date" class="btn btn-outline-dark" (click)="dp.toggle()"
+                                        value={{dp._inputValue}} type="button">
+                                        by specific date</button>
+                                    <hr>
+                                    <select name="month" class="btn mo-selection">
+                                        <option disabled="disabled" selected value="">by month</option>
+                                        <option value=1 name="January">January</option>
+                                        <option value=2>February</option>
+                                        <option value=3>March</option>
+                                        <option value=4>April</option>
+                                        <option value=5>May</option>
+                                        <option value=6>June</option>
+                                        <option value=7>July</option>
+                                        <option value=8>August</option>
+                                        <option value=9>September</option>
+                                        <option value=10>October</option>
+                                        <option value=11>November</option>
+                                        <option value=12>December</option>
+                                    </select>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark"
-                        (click)="updateMonth(dp._inputValue.slice(5, 7)); modal.close('')">Save</button>
+                        (click)="updateMonth(filterForm); modal.close('')">Save</button>
                 </div>
             </ng-template>
 

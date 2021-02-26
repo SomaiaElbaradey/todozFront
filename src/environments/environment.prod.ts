@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:2919'
+  api: 'https://todozz.herokuapp.com'
 };

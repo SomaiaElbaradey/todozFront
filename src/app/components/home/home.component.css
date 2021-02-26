@@ -47,6 +47,37 @@
     cursor:default;
 }
 
+.filter-div{
+    border-left: 5px solid #fc8c84;
+    padding: 15px;
+}
+
+.previous-div{
+    background-color: #272b30;
+}
+
+.previous-div time{
+    color: #e9b6b2d5;
+    font-size: 14px;
+}
+
+.prev-todo span {
+    font-size: 13px;
+}
+
+#circle {
+    float: left;
+    width: 21px;
+    height: 21px;
+    shape-outside: circle(50% at 50%);
+    clip-path: circle(50% at 20%);
+    background: #fc8c84;
+}
+
+.previous-div:hover {
+    background-color: #30343b;
+}
+
 .tasks-div h5{
     font-size: 25px;
 }
@@ -108,4 +139,14 @@ visibility: visible;
 
 .modal-footer button{
     font-size: 19px;
+}
+
+.mo-selection{
+    border: 1px solid black;
+    margin-left: 20px;
+    font-size: 21px;
+}
+
+.input-group-append button{
+    font-size: 21px;
 }
