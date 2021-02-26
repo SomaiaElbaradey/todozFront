@@ -20,6 +20,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptorService } from './token-interceptor.service';
 import { AuthGuard } from './services/auth.guard';
+import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthGuard } from './services/auth.guard';
     RegistrationComponent,
     LoginComponent,
     HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,

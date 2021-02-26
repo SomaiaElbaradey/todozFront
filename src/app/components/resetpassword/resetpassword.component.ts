@@ -4,16 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-resetpassword',
+  templateUrl: './resetpassword.component.html',
   styleUrls: ['../registration/registration.component.css']
 })
-export class LoginComponent implements OnInit {
+
+export class ResetpasswordComponent implements OnInit {
 
   constructor(
     private myActivatedRoute: ActivatedRoute,
     private router: Router,
-    private _loginService: RegisterService
+    private _resetPassword: RegisterService
   ) {
     console.log(this.myActivatedRoute)
   }
@@ -21,10 +22,12 @@ export class LoginComponent implements OnInit {
   //login vlaues validation
   myForm = new FormGroup({
     email: new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     ]),
     password: new FormControl('', [
       Validators.required,
+      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).{8,}$')
     ]),
   })
 
@@ -39,15 +42,12 @@ export class LoginComponent implements OnInit {
   login(e) {
     if (this.myForm.valid) {
       //http request to login
-      this._loginService.login(
+      this._resetPassword.resetPassword(
         e.email.value,
         e.password.value,
       )
         .subscribe(
-          (response) => {
-            console.log(response);
-            this.error = null;
-          },
+          response => this.error = response,
           (err) => {
             console.log(err);
             this.error = err.error;
@@ -59,10 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToRegister() {
-    this.router.navigateByUrl('/register');
+    this.router.navigateByUrl('/login');
   }
 
-  navigateToReset(){
-    this.router.navigateByUrl('/resetPassword');
-  }
 }

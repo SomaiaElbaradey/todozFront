@@ -51,6 +51,15 @@ export class RegisterService {
       )
   }
 
+  public resetPassword(mail: string, newPassword: string): Observable<any> {
+    return this._HttpClient
+      .post(
+        `${this.baseURL}/api/user/resetPassword`,
+        { mail, newPassword },
+        { responseType: "text" }
+      )
+  }
+
   public isLogged(){
     return !!(localStorage.getItem("todozToken"));
   }
