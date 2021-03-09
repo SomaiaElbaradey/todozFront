@@ -176,6 +176,7 @@ export class HomeComponent implements OnInit, OnChanges {
   updateMonth(e) {
     const month = e.month.value;
     const date = e.date.value;
+    const status = e.status.value;
     if (month) {
       this.TodoGroupService.specificMonthTasks(month).subscribe(
         res => {
@@ -194,6 +195,16 @@ export class HomeComponent implements OnInit, OnChanges {
         res => {
           this.lastMos = res;
           this.filter = `${day} ${this.months[month - 1]}`
+        },
+        err => console.log(err)
+      )
+    }
+
+    else if(status){
+      this.TodoGroupService.specificStatus(status).subscribe(
+        res => {
+          this.lastMos = res;
+          this.filter = `${status}`
         },
         err => console.log(err)
       )
@@ -230,7 +241,9 @@ export class HomeComponent implements OnInit, OnChanges {
       this.err = null;
       let title = e.title.value;
       let body = e.body.value;
-      let status = e.status.value;
+      let status = "to-do";
+      if(e.status.value!='') status = e.status.value;
+      console.log(status)
       let tags = [];
       if (e.tags.value) {
         tags = e.tags.value.split(" ");
@@ -275,7 +288,8 @@ export class HomeComponent implements OnInit, OnChanges {
     this.err = null;
     let title = e.title.value || this.task.title;
     let body = e.body.value || this.task.body;
-    let status = e.status.value || this.task.status;
+    let status = this.task.status;
+    if(e.status.value!='') status = e.status.value;
     let tags = this.task.tags;
     if (e.tags.value) {
       tags = tags.concat(e.tags.value.split(" "));

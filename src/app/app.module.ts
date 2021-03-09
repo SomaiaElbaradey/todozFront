@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
-import { BottonComponent } from './components/botton/botton.component';
-import { GroupComponent } from './components/group/group.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -25,8 +23,6 @@ import { DpDatePickerModule } from 'ng2-date-picker';
 @NgModule({
   declarations: [
     AppComponent,
-    BottonComponent,
-    GroupComponent,
     NavbarComponent,
     RegistrationComponent,
     LoginComponent,

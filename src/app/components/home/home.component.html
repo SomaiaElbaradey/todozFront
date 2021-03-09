@@ -30,11 +30,11 @@
 
                 <!-- add new group -->
                 <div class="row" *ngIf="addGroupFlag">
-                    <div class="col-lg-8 p-lg-3" [formGroup]="groupForm">
+                    <div class="col-lg-12" [formGroup]="groupForm">
                         <input style="width: 100%;" formControlName='groupTitle' #groupTitle type="text"
                             placeholder="Group Title" class="form-control">
                     </div>
-                    <div class="col-lg-4 p-lg-3 align-self-center">
+                    <div class="col-lg-12 align-self-center">
                         <input type="submit" value="Add" style="width: 100%;"
                             class="form-control field-submit text-center" (click)=addGroup(groupTitle)>
                     </div>
@@ -50,7 +50,8 @@
                     </span>
                 </div>
 
-                <button class="form-control field-submit text-center" style="width: 100%;" (click)=newGroup()> + Create
+                <button *ngIf="!addGroupFlag" class="form-control field-submit text-center" style="width: 100%;"
+                    (click)=newGroup()> + Create
                     New Group </button>
             </div>
 
@@ -190,6 +191,13 @@
                                         <option value=11>November</option>
                                         <option value=12>December</option>
                                     </select>
+                                    <hr>
+                                    <select name="status" class="btn mo-selection">
+                                        <option disabled="disabled" selected value="">by Status</option>
+                                        <option value="to-do">To Do</option>
+                                        <option value="in-progress">In Progress</option>
+                                        <option value="done">Done</option>
+                                    </select>
                                 </div>
                             </form>
                         </div>
@@ -233,7 +241,7 @@
                             </span>
                         </span>
                         <select name="status" class="form-control">
-                            <option selected value="" disabled="disabled">Status</option>
+                            <option value="" selected disabled="disabled">Status</option>
                             <option value="to-do">To Do</option>
                             <option value="in-progress">In Progress</option>
                             <option value="done">Done</option>
@@ -261,7 +269,7 @@
                         <input type="text" name="title" class="form-control field-title" placeholder="Title">
                         <textarea name="body" class="form-control field-body" placeholder="Task Details"></textarea>
                         <select name="status" class="form-control">
-                            <option selected value="to-do" disabled="disabled">Status</option>
+                            <option value="" selected disabled="disabled">Status</option>
                             <option value="to-do">To Do</option>
                             <option value="in-progress">In Progress</option>
                             <option value="done">Done</option>
