@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     console.clear();
+    this.filter = "Recent";
     //get all tasks
     this.allTasks();
     this.err = null;
@@ -200,7 +201,7 @@ export class HomeComponent implements OnInit, OnChanges {
       )
     }
 
-    else if(status){
+    else if (status) {
       this.TodoGroupService.specificStatus(status).subscribe(
         res => {
           this.lastMos = res;
@@ -242,7 +243,7 @@ export class HomeComponent implements OnInit, OnChanges {
       let title = e.title.value;
       let body = e.body.value;
       let status = "to-do";
-      if(e.status.value!='') status = e.status.value;
+      if (e.status.value != '') status = e.status.value;
       console.log(status)
       let tags = [];
       if (e.tags.value) {
@@ -289,7 +290,7 @@ export class HomeComponent implements OnInit, OnChanges {
     let title = e.title.value || this.task.title;
     let body = e.body.value || this.task.body;
     let status = this.task.status;
-    if(e.status.value!='') status = e.status.value;
+    if (e.status.value != '') status = e.status.value;
     let tags = this.task.tags;
     if (e.tags.value) {
       tags = tags.concat(e.tags.value.split(" "));
