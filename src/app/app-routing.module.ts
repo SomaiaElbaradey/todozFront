@@ -8,11 +8,12 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { AuthGuard } from './services/auth.guard';
+import { LogginAuthGuardService } from './services/loggin-auth-guard.service';
 
 const routes: Routes = [
-  { path: 'register', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'resetPassword', component: ResetpasswordComponent },
+  { path: 'register', component: RegistrationComponent, canActivate: [LogginAuthGuardService] },
+  { path: 'login', component: LoginComponent, canActivate: [LogginAuthGuardService] },
+  { path: 'resetPassword', component: ResetpasswordComponent, canActivate: [LogginAuthGuardService] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '**', component: ErrorComponent },

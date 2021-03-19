@@ -19,6 +19,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { AuthGuard } from './services/auth.guard';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { DpDatePickerModule } from 'ng2-date-picker';
+import { LogginAuthGuardService } from './services/loggin-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DpDatePickerModule } from 'ng2-date-picker';
   ],
   providers: [
     AuthGuard,
+    LogginAuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
